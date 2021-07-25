@@ -2,7 +2,7 @@
 # of the voice assistants functionality
 
 # PROTOTYPE
-import speech_recognition as sr # Library that allows us to find 
+import speech_recognition as sr # Library that allows us to find
 import pyttsx3  # Library that allows for text to speech
 import time # Library that allows us to manipulate time
 import requests # Library that allows us to send HTTP requests
@@ -44,7 +44,17 @@ def speak():
 action = speak()
 
 if "play" in action:
-    
+
     # We're going to have to get some sort of media player
     # I'm leaning towards vlc
-    req = requests.get(
+
+    action = re.compile(action, re.IGNORECASE)
+    search = re.sub(".*Play.","",action)
+    search = re.sub("\s","+",search)
+
+    req = requests.get("https://www.youtube.com/results?search_query=" + search)
+
+
+
+
+
