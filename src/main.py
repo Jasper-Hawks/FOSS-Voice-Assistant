@@ -32,7 +32,7 @@ time.sleep(2)
 
 engine.say("I'm Jim how may I help you")
 
-# Run and wait allows the voice assistant to wait for more commands to give it
+# Run and wait allows the voice assistant to
 engine.runAndWait()
 
 def speak():
@@ -65,8 +65,11 @@ if "play" in action:
 
     # We're going to have to get some sort of media player
     # I'm leaning towards vlc
-
+    # TODO We'll have to implement finding firefox
     driver = webdriver.Firefox()
+
+    uB = "./uBlock.xpi"
+    driver.install_addon(uB, temporary = True)
     # TODO check if play is empty or not
 
     playPattern = re.compile(".*Play.",re.IGNORECASE)
