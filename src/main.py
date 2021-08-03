@@ -12,6 +12,7 @@ import re # Regex library for manipulating strings
 from selenium import webdriver
 from bs4 import BeautifulSoup # Library that allows us to scrape elements from an HTML file
 
+#TODO Find a way to change the driver to espeak
 engine = pyttsx3.init() # Initialize the voice engine from pyttsx3
 
 # These voices are based off of the ones that are installed onto your system
@@ -23,6 +24,12 @@ engine.say("Setting things up...")
 r = sr.Recognizer()
 mic = sr.Microphone()
 
+
+# TODO Fix adding extensions to geckodriver
+profile = webdriver.FirefoxProfile()
+uB = "./uBlock.xpi"
+profile.add_extension(extension=uB)
+
 time.sleep(2)
 
 # TODO Eventually we will have to create a dedicated setup
@@ -32,7 +39,8 @@ time.sleep(2)
 
 engine.say("I'm Jim how may I help you")
 
-# Run and wait allows the voice assistant to
+# Run and wait allows the voice assistant to wait for anymore commands
+# that we give it that involve speaking
 engine.runAndWait()
 
 def speak():
@@ -61,16 +69,14 @@ action = speak()
 
 print(action)
 
+# TODO Come back to the development of play
 if "play" in action:
 
     # We're going to have to get some sort of media player
     # I'm leaning towards vlc
-    # TODO We'll have to implement finding firefox
-    driver = webdriver.Firefox()
 
-    uB = "./uBlock.xpi"
-    driver.install_addon(uB, temporary = True)
     # TODO check if play is empty or not
+    driver = webdriver.Firefox(firefox_profile=profile)
 
     playPattern = re.compile(".*Play.",re.IGNORECASE)
     search = re.sub(playPattern,"",action)
@@ -100,6 +106,11 @@ if "play" in action:
 #       print("ran")
 #       print(link)
 
+if "what" in action:
+
+    driver = webdriver.Firefox(firefox_profile=profile)
+
+    #TODO Decide whether we want to implement regex or not
 
 
 

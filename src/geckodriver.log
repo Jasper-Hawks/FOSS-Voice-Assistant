@@ -272,3 +272,165 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileb8xodO/search.json.mozlz4", (void 0)))
 1627930809243	Marionette	INFO	Listening on port 37799
 1627930809306	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: services.settings: 
+  main/doh-providers Signature failed  InvalidSignatureError: Invalid content signature (main/doh-providers)
+console.error: services.settings: 
+  main/doh-providers local data was corrupted
+console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
+console.error: services.settings: 
+  main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
+console.error: services.settings: 
+  main/doh-config local data was corrupted
+console.warn: services.settings: main/doh-config Signature verified failed. Retry from scratch
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1627946455995	Marionette	INFO	Stopped listening on port 37799
+1627946480521	geckodriver	INFO	Listening on 127.0.0.1:45395
+1627946480530	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilejFTAi2"
+1627946481339	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilejFTAi2/search.json.mozlz4", (void 0)))
+1627946482617	Marionette	INFO	Listening on port 38983
+1627946482651	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: services.settings: 
+  main/doh-providers Signature failed  InvalidSignatureError: Invalid content signature (main/doh-providers)
+console.error: services.settings: 
+  main/doh-providers local data was corrupted
+console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
+console.error: services.settings: 
+  main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
+console.error: services.settings: 
+  main/doh-config local data was corrupted
+console.warn: services.settings: main/doh-config Signature verified failed. Retry from scratch
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1627954730890	Marionette	INFO	Stopped listening on port 38983
+1628018715310	geckodriver	INFO	Listening on 127.0.0.1:45829
+1628018716314	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilelAtODd"
+1628018717247	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilelAtODd/search.json.mozlz4", (void 0)))
+1628018718544	Marionette	INFO	Listening on port 40419
+1628018718661	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: services.settings: 
+  main/doh-providers Signature failed  InvalidSignatureError: Invalid content signature (main/doh-providers)
+console.error: services.settings: 
+  main/doh-providers local data was corrupted
+console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
+console.error: services.settings: 
+  main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
+console.error: services.settings: 
+  main/doh-config local data was corrupted
+console.warn: services.settings: main/doh-config Signature verified failed. Retry from scratch
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1628019196933	Marionette	INFO	Stopped listening on port 40419
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1628019479219	geckodriver	INFO	Listening on 127.0.0.1:55319
+1628019479227	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileailKE6"
+1628019479690	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileailKE6/search.json.mozlz4", (void 0)))
+1628019480866	Marionette	INFO	Listening on port 33237
+1628019480952	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628019649361	geckodriver	INFO	Listening on 127.0.0.1:51785
+1628019649364	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileS6ojgf"
+1628019649786	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileS6ojgf/search.json.mozlz4", (void 0)))
+1628019650921	Marionette	INFO	Listening on port 37921
+1628019650985	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628019652586	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+1628019658606	Marionette	INFO	Stopped listening on port 33237
+1628019661879	Marionette	INFO	Stopped listening on port 37921
+1628019795534	geckodriver	INFO	Listening on 127.0.0.1:45405
+1628019796076	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileTWJdIE"
+1628019796605	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileTWJdIE/search.json.mozlz4", (void 0)))
+1628019797639	Marionette	INFO	Listening on port 38195
+1628019797703	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628019799324	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+1628019805812	Marionette	INFO	Stopped listening on port 38195
+1628020300782	geckodriver	INFO	Listening on 127.0.0.1:48521
+1628020301461	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileHyjQ7a"
+1628020302103	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHyjQ7a/search.json.mozlz4", (void 0)))
+1628020303466	Marionette	INFO	Listening on port 34883
+1628020303613	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628020305760	Marionette	INFO	Stopped listening on port 34883
+1628020374585	geckodriver	INFO	Listening on 127.0.0.1:39933
+1628020375286	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileenQL9v"
+1628020375926	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileenQL9v/search.json.mozlz4", (void 0)))
+1628020377117	Marionette	INFO	Listening on port 44325
+1628020377206	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628020378867	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1628020383250	Marionette	INFO	Stopped listening on port 44325
+1628020438994	geckodriver	INFO	Listening on 127.0.0.1:35645
+1628020439694	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilenosbgt"
+1628020440343	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilenosbgt/search.json.mozlz4", (void 0)))
+1628020441709	Marionette	INFO	Listening on port 46859
+1628020441861	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628020444245	Marionette	INFO	Stopped listening on port 46859
+1628020783910	geckodriver	INFO	Listening on 127.0.0.1:41053
+1628020784617	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileqChcsT"
+1628020785254	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileqChcsT/search.json.mozlz4", (void 0)))
+1628020786763	Marionette	INFO	Listening on port 37957
+1628020786839	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628020787909	Marionette	WARN	Ignoring event 'pageshow' because document has an invalid readyState of 'uninitialized'.
+JavaScript error: resource://gre/actors/AudioPlaybackParent.jsm, line 24: TypeError: browser is null
+JavaScript error: https://assets.revcontent.com/master/delivery.js, line 2: TypeError: f.b[n.props.bannerSize] is undefined
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+console.error: services.settings: 
+  main/doh-providers Signature failed  InvalidSignatureError: Invalid content signature (main/doh-providers)
+console.error: services.settings: 
+  main/doh-providers local data was corrupted
+console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
+console.error: services.settings: 
+  main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
+console.error: services.settings: 
+  main/doh-config local data was corrupted
+console.warn: services.settings: main/doh-config Signature verified failed. Retry from scratch
+JavaScript warning: https://www.googletagservices.com/activeview/js/current/osd.js, line 6: Script terminated by timeout at:
+xb@https://www.googletagservices.com/activeview/js/current/osd.js:6:7253
+ng/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:48163
+jg/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:47271
+ig@https://www.googletagservices.com/activeview/js/current/osd.js:6:47164
+jg@https://www.googletagservices.com/activeview/js/current/osd.js:6:47252
+ng@https://www.googletagservices.com/activeview/js/current/osd.js:6:48131
+k.Xa@https://www.googletagservices.com/activeview/js/current/osd.js:6:51199
+Xf@https://www.googletagservices.com/activeview/js/current/osd.js:6:44509
+dh@https://www.googletagservices.com/activeview/js/current/osd.js:6:59766
+ah.prototype.sample@https://www.googletagservices.com/activeview/js/current/osd.js:6:59501
+Ye/a.g<@https://www.googletagservices.com/activeview/js/current/osd.js:6:34747
+le/</<@https://www.googletagservices.com/activeview/js/current/osd.js:6:28681
+ie/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:28391
+Rd/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:25483
+ie@https://www.googletagservices.com/activeview/js/current/osd.js:6:28530
+le/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:28654
+Rd/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:25483
+Rd/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:25527
+
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
