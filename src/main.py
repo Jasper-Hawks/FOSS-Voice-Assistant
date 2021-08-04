@@ -112,7 +112,10 @@ if "what" in action:
 
     #TODO Decide whether we want to implement regex or not
 
-
+    # Use the bs4 and requests in order to scrape the website
+    # for the small Wikipedia summaries on the side.
+    # Then if they are unavailable we will have to look at
+    # summaries of different articles
 
 
 

@@ -434,3 +434,7 @@ Rd/<@https://www.googletagservices.com/activeview/js/current/osd.js:6:25527
 
 console.log: WebExtensions: reset-default-search: starting.
 console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1628022234047	Marionette	INFO	Stopped listening on port 37957
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
