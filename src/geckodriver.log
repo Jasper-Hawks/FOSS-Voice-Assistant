@@ -438,3 +438,10 @@ console.log: WebExtensions: reset-default-search: No addons in our list are inst
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1628186312810	geckodriver	INFO	Listening on 127.0.0.1:55277
+1628186314335	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileoL3cuO"
+1628186314835	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileoL3cuO/search.json.mozlz4", (void 0)))
+1628186316390	Marionette	INFO	Listening on port 46439
+1628186316455	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628186320536	Marionette	INFO	Stopped listening on port 46439

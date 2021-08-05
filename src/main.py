@@ -23,7 +23,8 @@ engine.say("Setting things up...")
 
 r = sr.Recognizer()
 mic = sr.Microphone()
-
+userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36'
+headers = {"User-Agent":userAgent}
 
 # TODO Fix adding extensions to geckodriver
 profile = webdriver.FirefoxProfile()
@@ -108,14 +109,26 @@ if "play" in action:
 
 if "what" in action:
 
-    driver = webdriver.Firefox(firefox_profile=profile)
+#    driver = webdriver.Firefox(firefox_profile=profile)
 
     #TODO Decide whether we want to implement regex or not
 
-    # Use the bs4 and requests in order to scrape the website
-    # for the small Wikipedia summaries on the side.
+    # Search engines generate results using JavaScript
+    # so we can not use bs4 and requests in order to
+    # scrape duckduckgo with just a http request.
+    #
+    # Instead we can generate the site with selenium and
+    # try to scrape from there
+
     # Then if they are unavailable we will have to look at
     # summaries of different articles
 
+    r = requests.get("https://duckduckgo.com/?q=" + action,headers=headers).text
+
+    soup = BeautifulSoup(r,"html.parser")
+
+    for desc in soup.find_all(class_ = "js-about-item-abstr"):
+        print("her")
+        print(desc) # TODO Replace this with saying the description
 
 
