@@ -13,7 +13,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup # Library that allows us to scrape elements from an HTML file
 
 #TODO Find a way to change the driver to espeak
-engine = pyttsx3.init() # Initialize the voice engine from pyttsx3
+engine = pyttsx3.init("espeak",True) # Initialize the voice engine from pyttsx3
 
 # These voices are based off of the ones that are installed onto your system
 # We're using espeak since we're on Linux
@@ -42,6 +42,7 @@ engine.say("I'm Jim how may I help you")
 
 # Run and wait allows the voice assistant to wait for anymore commands
 # that we give it that involve speaking
+
 engine.runAndWait()
 
 def speak():
@@ -109,7 +110,7 @@ if "play" in action:
 
 if "what" in action:
 
-#    driver = webdriver.Firefox(firefox_profile=profile)
+    driver = webdriver.Firefox(firefox_profile=profile)
 
     #TODO Decide whether we want to implement regex or not
 
@@ -123,12 +124,13 @@ if "what" in action:
     # Then if they are unavailable we will have to look at
     # summaries of different articles
 
-    r = requests.get("https://duckduckgo.com/?q=" + action,headers=headers).text
+    driver.get("https://duckduckgo.com/?q=" + action)
 
-    soup = BeautifulSoup(r,"html.parser")
+    try:
+        ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/span")
+    except:
+        ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[1]/div[5]/div[1]/div/div[2]")
 
-    for desc in soup.find_all(class_ = "js-about-item-abstr"):
-        print("her")
-        print(desc) # TODO Replace this with saying the description
-
+    print(ans.text)
+    engine.say(ans.text)
 
