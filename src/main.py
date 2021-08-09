@@ -40,10 +40,8 @@ time.sleep(2)
 
 engine.say("I'm Jim how may I help you")
 
-# Run and wait allows the voice assistant to wait for anymore commands
+# Run and wait allows the voice assistant to process the commands
 # that we give it that involve speaking
-
-engine.runAndWait()
 
 def speak():
     request = "" # TODO Rename this because I'll probably use the request library
@@ -51,22 +49,25 @@ def speak():
     with mic as source:
 
         r.adjust_for_ambient_noise(source)
-        print("Say something")
+        print("Say something") # TODO this is being printed later than expected
         audio = r.listen(source)
 
         try:
             # TODO Switch this back to sphinx when done testing
             request = r.recognize_google(audio)
+            understood = True
         except sr.UnknownValueError:
-            print("I don't understand")
+            engine.say("I don't understand, can you please repeat that.")
         except sr.RequestError:
-            print("Error could not access API")
+            engine.say("I can not access the API")
         except:
             # TODO Eventually remove this once everything is working
             print("Something went wrong")
 
+    engine.runAndWait()
     return(request)
 
+engine.runAndWait()
 action = speak()
 
 print(action)
@@ -108,8 +109,16 @@ if "play" in action:
 #       print("ran")
 #       print(link)
 
-if "what" in action:
+# TODO Add who when where why and how
+if "what" in action or "who" in action or "when" in action or "where" in action or "why" in action or "how" in action:
 
+    # TODO Also find a way to answer more complicated questions like:
+    # How do you calculate the hypotenuse of a triangle
+    #
+    # For now simple questions can be found and answered with tts
+    # We'll have to find more complicated questions
+
+    engine.say("Searching for," + action)
     driver = webdriver.Firefox(firefox_profile=profile)
 
     #TODO Decide whether we want to implement regex or not
@@ -124,13 +133,23 @@ if "what" in action:
     # Then if they are unavailable we will have to look at
     # summaries of different articles
 
+
     driver.get("https://duckduckgo.com/?q=" + action)
 
     try:
+        # Try to find the sidebar wikipedia module
         ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/span")
     except:
+        # If that does not work read the first article on the page
+        #
+        # Instead of reading the article we can instead do what similar
+        # assistants do and just show the user the article since the
+        # assistant will also have a GUI.
+        # Then say this is what i found
+
         ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[1]/div[5]/div[1]/div/div[2]")
 
     print(ans.text)
     engine.say(ans.text)
+    engine.runAndWait()
 
