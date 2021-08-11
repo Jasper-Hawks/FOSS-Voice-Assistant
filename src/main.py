@@ -4,6 +4,7 @@
 # TODO Eventually create a GUI interface akin to Suri
 
 # PROTOTYPE
+import vlc
 import speech_recognition as sr # Library that allows us to find
 import pyttsx3  # Library that allows for text to speech
 import time # Library that allows us to manipulate time
@@ -16,7 +17,8 @@ from bs4 import BeautifulSoup # Library that allows us to scrape elements from a
 engine = pyttsx3.init("espeak",True) # Initialize the voice engine from pyttsx3
 
 # These voices are based off of the ones that are installed onto your system
-# We're using espeak since we're on Linux
+# We're using espeak since we're on Linux and I'll eventually run this on a
+# raspberry pi
 
 # Notify the user that we are setting up the assistant
 engine.say("Setting things up...")
@@ -28,23 +30,20 @@ headers = {"User-Agent":userAgent}
 
 # TODO Fix adding extensions to geckodriver
 profile = webdriver.FirefoxProfile()
-uB = "./uBlock.xpi"
-profile.add_extension(extension=uB)
+profile.add_extension()
 
 time.sleep(2)
 
 # TODO Eventually we will have to create a dedicated setup
 # where you can rename the assistant and set other preferences
 # for now we'll have a placeholder name, Jim, and cross that
-# line when we get to it
+# bridge when we get to it
 
+#TODO Remove the delay from the introduction to processing speech
 engine.say("I'm Jim how may I help you")
 
-# Run and wait allows the voice assistant to process the commands
-# that we give it that involve speaking
-
 def speak():
-    request = "" # TODO Rename this because I'll probably use the request library
+    request = ""
 
     with mic as source:
 
@@ -89,6 +88,7 @@ if "play" in action:
 #   req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
 #   print("https://www.youtube.com/results?search_query=" + search)
 
+    # If we use vlc we wont need to open the link in selenium
     driver.get("https://www.youtube.com/results?search_query=" + search)
 
     vid = driver.find_element_by_xpath("//*[@id=\"img\"]")
@@ -96,29 +96,19 @@ if "play" in action:
 
     # TODO Implement a way to stop the video when it is done
 
-
-    # Since Youtube doesn't have any structured way of making the URLS
-    # of videos we'll have to take our first guess
-
     # If we want we can separate requests between music and videos and have Spotify
     # handle music while we deal with videos on Youtube
-#   soup = BeautifulSoup(req,"html.parser")
-#   print(soup.prettify())
 
-#   for link in soup.find_all("div", class_ = "style-scope ytd-section-list-renderer"):
-#       print("ran")
-#       print(link)
-
-# TODO Add who when where why and how
 if "what" in action or "who" in action or "when" in action or "where" in action or "why" in action or "how" in action:
 
     # TODO Also find a way to answer more complicated questions like:
     # How do you calculate the hypotenuse of a triangle
     #
     # For now simple questions can be found and answered with tts
-    # We'll have to find more complicated questions
+    # We'll have to find more complicated solutions to more complicated answers
 
     engine.say("Searching for," + action)
+    engine.runAndWait()
     driver = webdriver.Firefox(firefox_profile=profile)
 
     #TODO Decide whether we want to implement regex or not
@@ -140,16 +130,17 @@ if "what" in action or "who" in action or "when" in action or "where" in action 
         # Try to find the sidebar wikipedia module
         ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/span")
     except:
-        # If that does not work read the first article on the page
-        #
         # Instead of reading the article we can instead do what similar
         # assistants do and just show the user the article since the
-        # assistant will also have a GUI.
-        # Then say this is what i found
+        # assistant will also have a GUI. Then say this is what i found
 
-        ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[1]/div[5]/div[1]/div/div[2]")
+        engine.say("Ok this is what I found online on" + action)
+        engine.runAndWait()
 
-    print(ans.text)
-    engine.say(ans.text)
-    engine.runAndWait()
+    try:
+        print(ans.text)
+        engine.say(ans.text)
+        engine.runAndWait()
+    except NameError:
+        pass
 
