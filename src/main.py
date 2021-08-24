@@ -11,6 +11,7 @@ import time # Library that allows us to manipulate time
 import requests # Library that allows us to send HTTP requests
 import re # Regex library for manipulating strings
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup # Library that allows us to scrape elements from an HTML file
 
 #TODO Find a way to change the driver to espeak
@@ -99,6 +100,8 @@ if "play" in action:
     # If we want we can separate requests between music and videos and have Spotify
     # handle music while we deal with videos on Youtube
 
+# SEARCHING THE INTERNET
+# TODO Put custom questions in here like who are you?
 if "what" in action or "who" in action or "when" in action or "where" in action or "why" in action or "how" in action:
 
     # TODO Also find a way to answer more complicated questions like:
@@ -109,7 +112,12 @@ if "what" in action or "who" in action or "when" in action or "where" in action 
 
     engine.say("Searching for," + action)
     engine.runAndWait()
-    driver = webdriver.Firefox(firefox_profile=profile)
+
+    firefoxOptions = webdriver.FirefoxOptions()
+    firefoxOptions.set_headless()
+
+    opts = Options()
+    opts.headless = True
 
     #TODO Decide whether we want to implement regex or not
 
@@ -124,12 +132,16 @@ if "what" in action or "who" in action or "when" in action or "where" in action 
     # summaries of different articles
 
 
-    driver.get("https://duckduckgo.com/?q=" + action)
-
+    # TODO Optimize this especially the except clause since searches are slow
     try:
+        driver = webdriver.Firefox(options=opts)
+        driver.get("https://duckduckgo.com/?q=" + action)
         # Try to find the sidebar wikipedia module
         ans = driver.find_element_by_xpath("/html/body/div[2]/div[5]/div[3]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/span")
     except:
+        opts.headless = False
+        driver = webdriver.Firefox(options=opts)
+        driver.get("https://duckduckgo.com/?q=" + action)
         # Instead of reading the article we can instead do what similar
         # assistants do and just show the user the article since the
         # assistant will also have a GUI. Then say this is what i found
