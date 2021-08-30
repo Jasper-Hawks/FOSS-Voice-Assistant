@@ -5,6 +5,7 @@
 
 # PROTOTYPE
 import vlc
+import pafy
 import speech_recognition as sr # Library that allows us to find
 import pyttsx3  # Library that allows for text to speech
 import time # Library that allows us to manipulate time
@@ -72,6 +73,7 @@ action = speak()
 
 print(action)
 
+# PLAYING MUSIC/VIDEO
 # TODO Come back to the development of play
 if "play" in action:
 
@@ -79,36 +81,43 @@ if "play" in action:
     # I'm leaning towards vlc
 
     # TODO check if play is empty or not
-    driver = webdriver.Firefox(firefox_profile=profile)
+   driver = webdriver.Firefox(firefox_profile=profile)
 
-    playPattern = re.compile(".*Play.",re.IGNORECASE)
-    search = re.sub(playPattern,"",action)
-    engine.say("Now playing: " +search)
-    search = re.sub("\s","+",search)
+   playPattern = re.compile(".*Play.",re.IGNORECASE)
+   search = re.sub(playPattern,"",action)
+   engine.say("Now playing: " +search)
+   search = re.sub("\s","+",search)
 
-#   req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
-#   print("https://www.youtube.com/results?search_query=" + search)
+   req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
+   print("https://www.youtube.com/results?search_query=" + search)
 
-    # If we use vlc we wont need to open the link in selenium
-    driver.get("https://www.youtube.com/results?search_query=" + search)
+   # If we use vlc we wont need to open the link in selenium
+   driver.get("https://www.youtube.com/results?search_query=" + search)
 
-    vid = driver.find_element_by_xpath("//*[@id=\"img\"]")
-    vid.click()
+    #TODO Find a way to find the url of the first result of the Youtube search
+
+#   vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
+   vid = driver.find_element_by_xpath("/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[1]/div[1]/ytd-thumbnail")
+   print(vid.get_attribute("html"))
+
+   # Create a pafy object of the video
+   video = pafy.new(url)
+
+   best = video.getbest()
+
+   media = vlc.MediaPlayer(best.url)
+
+   media.play()
 
     # TODO Implement a way to stop the video when it is done
 
     # If we want we can separate requests between music and videos and have Spotify
     # handle music while we deal with videos on Youtube
 
+
 # SEARCHING THE INTERNET
 # TODO Put custom questions in here like who are you?
 if "what" in action or "who" in action or "when" in action or "where" in action or "why" in action or "how" in action:
-
-    # TODO Also find a way to answer more complicated questions like:
-    # How do you calculate the hypotenuse of a triangle
-    #
-    # For now simple questions can be found and answered with tts
-    # We'll have to find more complicated solutions to more complicated answers
 
     engine.say("Searching for," + action)
     engine.runAndWait()
@@ -118,8 +127,6 @@ if "what" in action or "who" in action or "when" in action or "where" in action 
 
     opts = Options()
     opts.headless = True
-
-    #TODO Decide whether we want to implement regex or not
 
     # Search engines generate results using JavaScript
     # so we can not use bs4 and requests in order to
