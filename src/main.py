@@ -4,7 +4,7 @@
 # TODO Eventually create a GUI interface akin to Suri
 
 # PROTOTYPE
-import vlc
+import mpv
 import pafy
 import speech_recognition as sr # Library that allows us to find
 import pyttsx3  # Library that allows for text to speech
@@ -42,7 +42,6 @@ time.sleep(2)
 # bridge when we get to it
 
 #TODO Remove the delay from the introduction to processing speech
-engine.say("I'm Jim how may I help you")
 
 def speak():
     request = ""
@@ -51,6 +50,8 @@ def speak():
 
         r.adjust_for_ambient_noise(source)
         print("Say something") # TODO this is being printed later than expected
+        engine.say("I'm Jim how may I help you")
+        engine.runAndWait()
         audio = r.listen(source)
 
         try:
@@ -65,7 +66,6 @@ def speak():
             # TODO Eventually remove this once everything is working
             print("Something went wrong")
 
-    engine.runAndWait()
     return(request)
 
 engine.runAndWait()
@@ -75,6 +75,7 @@ print(action)
 
 # PLAYING MUSIC/VIDEO
 # TODO Come back to the development of play
+@player.roperty_observer('time-pos')
 if "play" in action:
 
     # We're going to have to get some sort of media player
@@ -85,7 +86,6 @@ if "play" in action:
 
    playPattern = re.compile(".*Play.",re.IGNORECASE)
    search = re.sub(playPattern,"",action)
-   engine.say("Now playing: " +search)
    search = re.sub("\s","+",search)
 
    req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
@@ -97,17 +97,23 @@ if "play" in action:
     #TODO Find a way to find the url of the first result of the Youtube search
 
 #   vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
-   vid = driver.find_element_by_xpath("/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[1]/div[1]/ytd-thumbnail")
-   print(vid.get_attribute("html"))
+   vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
 
-   # Create a pafy object of the video
-   video = pafy.new(url)
+   url = vid.get_attribute("href")
 
-   best = video.getbest()
+   title = pafy.new(url)
 
-   media = vlc.MediaPlayer(best.url)
+   engine.say("Now Playing: " + title.title)
+   driver.close()
+   engine.runAndWait()
 
-   media.play()
+   player = mpv.MPV()
+   player.play(url)
+   player.wait_for_playback()
+
+   #TODO Eventually work on pausing playing and rewinding
+
+   print("Playing")
 
     # TODO Implement a way to stop the video when it is done
 
