@@ -5,6 +5,7 @@
 
 # PROTOTYPE
 import mpv
+import mpvListener
 import pafy
 import speech_recognition as sr # Library that allows us to find
 import pyttsx3  # Library that allows for text to speech
@@ -26,6 +27,7 @@ engine = pyttsx3.init("espeak",True) # Initialize the voice engine from pyttsx3
 engine.say("Setting things up...")
 
 r = sr.Recognizer()
+r.energy_threshold = 4000
 mic = sr.Microphone()
 userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36'
 headers = {"User-Agent":userAgent}
@@ -42,16 +44,41 @@ time.sleep(2)
 # bridge when we get to it
 
 #TODO Remove the delay from the introduction to processing speech
+def listener():
+    speech = ""
+    while True:
+        #TODO clear this variable after a few minutes
+
+        with mic as source:
+
+                r.adjust_for_ambient_noise(source,duration = 1)
+                print("Listening")
+                audio = r.listen(source)
+
+                try:
+                    # TODO Switch this back to sphinx when done testing
+                    speech = r.recognize_google(audio)
+                    print(speech)
+                # TODO Change Jim to the name variable
+                    if "hey Jim" in speech or "Hey Jim" in speech:
+                        engine.say("Yes?")
+                        engine.runAndWait()
+                        break
+                except sr.UnknownValueError:
+                    pass
+                except sr.RequestError:
+                    engine.say("I can not access the API")
+                except:
+                    # TODO Eventually remove this once everything is working
+                    print("Something went wrong")
+                print("done")
 
 def speak():
     request = ""
 
     with mic as source:
 
-        r.adjust_for_ambient_noise(source)
         print("Say something") # TODO this is being printed later than expected
-        engine.say("I'm Jim how may I help you")
-        engine.runAndWait()
         audio = r.listen(source)
 
         try:
@@ -69,57 +96,10 @@ def speak():
     return(request)
 
 engine.runAndWait()
+listener()
 action = speak()
 
 print(action)
-
-# PLAYING MUSIC/VIDEO
-# TODO Come back to the development of play
-@player.roperty_observer('time-pos')
-if "play" in action:
-
-    # We're going to have to get some sort of media player
-    # I'm leaning towards vlc
-
-    # TODO check if play is empty or not
-   driver = webdriver.Firefox(firefox_profile=profile)
-
-   playPattern = re.compile(".*Play.",re.IGNORECASE)
-   search = re.sub(playPattern,"",action)
-   search = re.sub("\s","+",search)
-
-   req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
-   print("https://www.youtube.com/results?search_query=" + search)
-
-   # If we use vlc we wont need to open the link in selenium
-   driver.get("https://www.youtube.com/results?search_query=" + search)
-
-    #TODO Find a way to find the url of the first result of the Youtube search
-
-#   vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
-   vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
-
-   url = vid.get_attribute("href")
-
-   title = pafy.new(url)
-
-   engine.say("Now Playing: " + title.title)
-   driver.close()
-   engine.runAndWait()
-
-   player = mpv.MPV()
-   player.play(url)
-   player.wait_for_playback()
-
-   #TODO Eventually work on pausing playing and rewinding
-
-   print("Playing")
-
-    # TODO Implement a way to stop the video when it is done
-
-    # If we want we can separate requests between music and videos and have Spotify
-    # handle music while we deal with videos on Youtube
-
 
 # SEARCHING THE INTERNET
 # TODO Put custom questions in here like who are you?
@@ -168,4 +148,59 @@ if "what" in action or "who" in action or "when" in action or "where" in action 
         engine.runAndWait()
     except NameError:
         pass
+    listen()
+
+
+# PLAYING MUSIC/VIDEO
+# TODO Come back to the development of play
+if "play" in action or "Play" in action:
+    player = mpv.MPV()
+
+	#We're going to have to get some sort of media player
+	#I'm leaning towards vlc
+
+	#TODO check if play is empty or not
+    driver = webdriver.Firefox(firefox_profile=profile)
+
+    playPattern = re.compile(".*Play.",re.IGNORECASE)
+    search = re.sub(playPattern,"",action)
+    engine.say("Searching for " + search)
+    search = re.sub("\s","+",search)
+    engine.runAndWait()
+
+    req = requests.get("https://www.youtube.com/results?search_query=" + search,headers=headers).text
+    print("https://www.youtube.com/results?search_query=" + search)
+
+    driver.get("https://www.youtube.com/results?search_query=" + search)
+
+    #TODO Find a way to find the url of the first result of the Youtube search
+
+    vid = driver.find_element_by_xpath("//*[@id=\"thumbnail\"]")
+
+    url = vid.get_attribute("href")
+
+    title = re.sub("[+]"," ",search)
+    engine.say("Now Playing: " + title)
+    engine.runAndWait()
+    driver.close()
+    
+    @player.on_key_press("q")
+    def q():
+        print("stop")
+
+    #TODO Run mpv headless
+    player.play(url)
+    player.wait_for_playback()
+    player.wait_until_playing()
+    print("playing")
+    #TODO This does not get played since the .play is being ran
+
+
+  
+    #TODO Eventually work on pausing playing and rewinding
+
+    # TODO Implement a way to stop the video when it is done
+
+	#If we want we can separate requests between music and videos and have Spotify
+	#handle music while we deal with videos on Youtube
 
